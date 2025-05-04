@@ -19,7 +19,15 @@ def read_file(file_path):
     """
     # 请在下方编写代码
     # 使用open()函数打开文件并读取内容
-    pass
+    try:
+        with open(file_path,'r', encoding ='utf-8') as file:
+            return file.read()
+    except FileNotFoundError:
+        return f"文件 {file_path} 未找到"
+    except UnicodeDecodeError:
+        return f"无法解码文件 {file_path}，请检查文件编码"
+    except Exception as e:
+        return f"读取文件时发生错误: {e}"
 
 def write_file(file_path, content):
     """
@@ -34,4 +42,11 @@ def write_file(file_path, content):
     """
     # 请在下方编写代码
     # 使用with语句和open()函数写入内容到文件
-    pass 
+    try:
+        # 使用with语句打开文件，指定写入模式
+        with open(file_path, 'w', encoding='utf-8') as file:
+            word_count = file.write(content)
+            # 判断写入字符数是否大于0
+            return word_count > 0
+    except Exception as e:
+        return f"写入文件时发生错误: {e}"
